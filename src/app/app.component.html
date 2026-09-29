@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html [lang]="lg">
-
-<body>
-    <div [@triggerName]="prepareRoute(outlet)">
-        <router-outlet #outlet="outlet"></router-outlet>
-    </div>
-    <app-cookie-consent></app-cookie-consent>
-</body>
-
-</html>
+<div [@triggerName]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+</div>
+<app-cookie-consent></app-cookie-consent>

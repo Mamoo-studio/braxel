@@ -1,0 +1,4 @@
+/* app-root est inline par défaut : bloc pour que la hauteur du contenu remonte normalement jusqu'au body */
+:host {
+  display: block;
+}

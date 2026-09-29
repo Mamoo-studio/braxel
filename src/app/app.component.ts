@@ -1,7 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet, Scroll } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { filter } from 'rxjs/operators';
 import { routeTransitionAnimations } from './route-transition-animations';
 import { FirestoreService } from './services/firebase/firestore.service';
 
@@ -26,6 +27,22 @@ export class AppComponent {
   }
 
   ngOnInit() {
+
+    // Scroll instantané à chaque navigation : le scroll "smooth" (scroll-behavior sur html)
+    // est interrompu par Safari quand la page change de hauteur pendant l'animation de route.
+    // Les ancres restent gérées par le router (anchorScrolling).
+    if (typeof window !== 'undefined' && 'scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    this.router.events
+      .pipe(filter((e): e is Scroll => e instanceof Scroll && !e.anchor))
+      .subscribe(e => {
+        if (typeof window === 'undefined') {
+          return;
+        }
+        const [left, top] = e.position || [0, 0];
+        window.scrollTo({ left, top, behavior: 'instant' as ScrollBehavior });
+      });
 
     //check if is server side rendering
     if (typeof window !== 'undefined') {
