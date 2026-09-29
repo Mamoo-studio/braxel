@@ -12,11 +12,13 @@
     "serve:ssr": "node dist/braxelv2/server/main.js",
     "build:ssr": "ng build",
     "prerender": "ng run braxelv2:prerender",
-    "postbuild": "gulp compress",
     "tailwind:build": "npx tailwindcss -i ./src/tailwind.css -o ./src/tailwind-compiled.css --minify",
     "tailwind:watch": "npx tailwindcss -i ./src/tailwind.css -o ./src/tailwind-compiled.css --watch"
   },
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "dependencies": {
     "@agm/core": "^3.0.0-beta.0",
     "@angular-slider/ngx-slider": "^2.0.3",

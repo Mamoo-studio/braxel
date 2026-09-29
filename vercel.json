@@ -1,0 +1,44 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm ci",
+  "buildCommand": "NODE_OPTIONS=--openssl-legacy-provider npm run build",
+  "outputDirectory": "dist/braxelv2/browser",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/((?!.*index\\.html)(?!.*\\.(?:css|js|jpg|png|webp|json|eot|otf|ttf|woff|woff2)$).*\\..*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "max-age=86400" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Max-Age", "value": "3600" },
+        { "key": "Access-Control-Expose-Headers", "value": "Content-Length" },
+        { "key": "Access-Control-Allow-Headers", "value": "Range" }
+      ]
+    },
+    {
+      "source": "/(.*)\\.(css|js|jpg|png|webp)",
+      "headers": [{ "key": "Cache-Control", "value": "max-age=31449600" }]
+    },
+    {
+      "source": "/(.*)\\.(eot|otf|ttf|woff|woff2)",
+      "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+    },
+    {
+      "source": "/((?!.*\\.).*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" },
+        { "key": "Expires", "value": "0" }
+      ]
+    },
+    {
+      "source": "/(.*)(index\\.html|\\.json)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" },
+        { "key": "Expires", "value": "0" }
+      ]
+    }
+  ]
+}
